@@ -1,0 +1,24 @@
+/*css from project-template*/
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/*css from alex-grid*/
+.the-brightest {
+    color: #66ff00;
+}

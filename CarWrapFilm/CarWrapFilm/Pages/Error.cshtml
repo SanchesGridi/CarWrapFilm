@@ -1,0 +1,16 @@
+﻿@page
+@model ErrorModel
+@{
+    var error = "Ошибка";
+    ViewData["Title"] = error;
+}
+
+<h1 class="text-danger">@error.</h1>
+<h2 class="text-danger">Произошла @error.ToLower() при обработке вашего запроса.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>ID запроса:</strong> <code>@Model.RequestId</code>
+    </p>
+}
