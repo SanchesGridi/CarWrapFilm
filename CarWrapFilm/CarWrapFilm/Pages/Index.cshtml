@@ -2,9 +2,60 @@
 @model IndexModel
 @{
     ViewData["Title"] = Model.Title;
+    var tableClass = "table table-striped table-hover table-responsive";
 }
 
 <div class="text-center">
-    <h4>Наши цены</h4>
-    <p>Более подробно на главном сайте: <a href="https://3d-glass.by/">3d-glass.by</a>.</p>
+    <h4>Комплекты оклейки кузова антигравийной полиуретановой пленкой</h4>
+</div>
+
+<div align="center">
+    <table class="@tableClass">
+        <thead>
+            <tr>
+                <td><strong class="text-success">Комплект</strong></td>
+                <td><strong class="text-success">Что в него входит</strong></td>
+                <td align="right"><strong class="text-success">Цена</strong></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var kit in Model.Kits)
+            {
+                <tr>
+                    <td><strong>@kit.Name</strong></td>
+                    <td>
+                        @foreach (var item in kit.Composition!)
+                        {
+                            <span>@item</span> <br/>
+                        }
+                    </td>
+                    <td align="right">От @kit.Price @Model.Currency</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    <h4>Стоимость оклейки отдельных элементов авто пленкой</h4>
+</div>
+
+<div align="center">
+    <table class="@tableClass">
+        <thead>
+            <tr>
+                <td><strong class="text-success">Элемент</strong></td>
+                <td align="right"><strong class="text-success">Цена</strong></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var work in Model.Works)
+            {
+                <tr>
+                    <td><strong>@work.Name</strong></td>
+                    <td align="right">От @work.Price @Model.Currency</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
