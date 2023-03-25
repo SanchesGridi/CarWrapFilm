@@ -18,7 +18,11 @@ body {
   margin-bottom: 60px;
 }
 
-/*css from alex-grid*/
+/*css from developer*/
 .the-brightest {
     color: #66ff00;
+}
+
+.m-b-20 {
+    margin-bottom: 20px;
 }

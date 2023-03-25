@@ -5,7 +5,14 @@
     var tableClass = "table table-striped table-hover table-responsive";
 }
 
-<div align="left" style="margin-bottom:20px;">
+<style>
+    .table-hover > tbody > tr:hover > td,
+    .table-hover > tbody > tr:hover > th {
+        background-color: darkgray;
+    }
+</style>
+
+<div align="left" class="m-b-20">
     <strong class="text-black-50">Контакты:</strong><br />
     <strong class="text-primary">+375(29)1144966</strong><br />
     <strong class="text-primary">+375(25)5077265</strong><br />
@@ -16,18 +23,18 @@
 </div>
 
 <div align="center">
-    <table class="@tableClass">
+    <table class="@tableClass" id="table-kits">
         <thead>
             <tr>
-                <td><strong class="text-success">Комплект</strong></td>
-                <td><strong class="text-success">Что в него входит</strong></td>
-                <td align="right"><strong class="text-success">Цена</strong></td>
+                <td><strong class="text-primary">Комплект</strong></td>
+                <td><strong class="text-primary">Что в него входит</strong></td>
+                <td align="right"><strong class="text-primary">Цена</strong></td>
             </tr>
         </thead>
         <tbody>
             @foreach (var kit in Model.Kits)
             {
-                <tr>
+                <tr id="@($"{kit.Id}_service_row")">
                     <td><strong>@kit.Name</strong></td>
                     <td>
                         @foreach (var item in kit.Composition!)
@@ -47,17 +54,17 @@
 </div>
 
 <div align="center">
-    <table class="@tableClass">
+    <table class="@tableClass" id="table-works">
         <thead>
             <tr>
-                <td><strong class="text-success">Элемент оклейки</strong></td>
-                <td align="right"><strong class="text-success">Цена</strong></td>
+                <td><strong class="text-primary">Элемент оклейки</strong></td>
+                <td align="right"><strong class="text-primary">Цена</strong></td>
             </tr>
         </thead>
         <tbody>
             @foreach (var work in Model.Works)
             {
-                <tr>
+                <tr id="@($"{work.Id}_service_row")">
                     <td><strong>@work.Name</strong></td>
                     <td align="right">От @work.Price @Model.Currency</td>
                 </tr>
@@ -65,3 +72,33 @@
         </tbody>
     </table>
 </div>
+
+<div class="text-center">
+    <p class="text-danger">
+        <strong>Внимание</strong>! Цены на оклейку автомобиля или отдельных его частей, оговариваются индивидуально.
+        Приведенные выше цены не являются окончательными и могут меняться в зависимости от сильных скачков котировок валют,
+        а также при наличиии у машины элементов нестандартных размеров и конфигураций,
+        например: передние крылья у <strong>BMW X6</strong>, капот у <strong>Porshe Macan</strong>, задние крылья у <strong>Range Rover</strong> и прочие...
+    </p>
+</div>
+
+<form class="m-b-20" method="post" id="service-order-form">
+    <header class="text-center text-primary"><strong>Заказ Услуги:</strong></header>
+    <input type="hidden" id="form-service-id-input" name="serviceId"/>
+    <div class="form-group">
+        <label for="form-name-input">Имя:</label>
+        <input id="form-name-input" type="text" class="form-control" aria-describedby="form-name-info" placeholder="Введите ваше имя" required />
+        <small id="form-name-info" class="form-text text-muted">Введите ваше имя (поле обязательно для заполнения)</small>
+    </div>
+    <div class="form-group">
+        <label for="form-service-input">Название услуги:</label>
+        <input id="form-service-input" type="text" class="form-control" aria-describedby="form-service-info" placeholder="@Model.Kits[0].Name" required />
+        <small id="form-service-info" class="form-text text-muted">Введите название услуги, она указана в графе "Комплект" или "Элемент оклейки" (поле обязательно для заполнения)</small>
+    </div>
+    <div class="form-group">
+        <label for="form-question-input">вопрос:</label>
+        <textarea id="form-question-input" class="form-control" aria-describedby="questionHelp" placeholder="Введите интересующий вас вопрос"></textarea>
+        <small id="questionHelp" class="form-text text-muted">Задайте нам вопрос</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
