@@ -21,6 +21,18 @@ public class IndexModel : PageModel
         _works = GenerateWorks();
     }
 
+    public async Task OnPostAsync(int serviceId, string user, string service, string question)
+    {
+        try
+        {
+            await Task.CompletedTask;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
     private static List<FilmWrappingKit> GenerateKits() =>
         new()
         {

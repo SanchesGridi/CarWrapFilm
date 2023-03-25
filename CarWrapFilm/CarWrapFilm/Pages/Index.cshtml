@@ -84,20 +84,20 @@
 
 <form class="m-b-20" method="post" id="service-order-form">
     <header class="text-center text-primary"><strong>Заказ Услуги:</strong></header>
-    <input type="hidden" id="form-service-id-input" name="serviceId"/>
+    <input type="hidden" id="form-service-id-input" name="serviceId" value="-1"/>
     <div class="form-group">
         <label for="form-name-input">Имя:</label>
-        <input id="form-name-input" type="text" class="form-control" aria-describedby="form-name-info" placeholder="Введите ваше имя" required />
+        <input id="form-name-input" type="text" class="form-control" aria-describedby="form-name-info" placeholder="Введите ваше имя" name="user" required />
         <small id="form-name-info" class="form-text text-muted">Введите ваше имя (поле обязательно для заполнения)</small>
     </div>
     <div class="form-group">
         <label for="form-service-input">Название услуги:</label>
-        <input id="form-service-input" type="text" class="form-control" aria-describedby="form-service-info" placeholder="@Model.Kits[0].Name" required />
+        <input id="form-service-input" type="text" class="form-control" aria-describedby="form-service-info" placeholder="@Model.Kits[0].Name" name="service" required />
         <small id="form-service-info" class="form-text text-muted">Введите название услуги, она указана в графе "Комплект" или "Элемент оклейки" (поле обязательно для заполнения)</small>
     </div>
     <div class="form-group">
         <label for="form-question-input">вопрос:</label>
-        <textarea id="form-question-input" class="form-control" aria-describedby="questionHelp" placeholder="Введите интересующий вас вопрос"></textarea>
+        <textarea id="form-question-input" class="form-control" aria-describedby="questionHelp" placeholder="Введите интересующий вас вопрос" name="question"></textarea>
         <small id="questionHelp" class="form-text text-muted">Задайте нам вопрос</small>
     </div>
     <button type="submit" class="btn btn-primary">Отправить</button>
