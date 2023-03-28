@@ -6,4 +6,9 @@ public static class StringExtensions
     {
         return string.IsNullOrWhiteSpace(@this);
     }
+
+    public static long ToLong(this string @this)
+    {
+        return long.Parse(@this);
+    }
 }

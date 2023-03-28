@@ -1,40 +1,78 @@
 ﻿using CarWrapFilm.Models;
+using CarWrapFilm.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text;
 
 namespace CarWrapFilm.Pages;
 
 public class IndexModel : PageModel
 {
+    private readonly ILogger<IndexModel> _logger;
+    private readonly IMessageSender _messageSender;
+
     private readonly List<FilmWrappingKit> _kits;
     private readonly List<FilmWrappingKit> _works;
-    private readonly ILogger<IndexModel> _logger;
 
+    public int NotExistingId => -1;
     public string Title => "Цены";
     public string Currency => "BYN";
     public List<FilmWrappingKit> Kits => _kits;
     public List<FilmWrappingKit> Works => _works;
 
-    public IndexModel(ILogger<IndexModel> logger)
+    public string OrderInformation { get; set; } = string.Empty;
+
+    public IndexModel(ILogger<IndexModel> logger, IMessageSender messageSender)
     {
         _logger = logger;
+        _messageSender = messageSender;
+
         _kits = GenerateKits();
         _works = GenerateWorks();
     }
 
-    public void OnGet()
-    {
-
-    }
-
-    public async Task OnPostAsync(int serviceId, string user, string service, string question)
+    public async Task OnPostAsync(int serviceId, string user, string service, string contact, string question)
     {
         try
         {
-            await Task.CompletedTask;
+            var serviceTag = GetServiceTag(serviceId, service);
+            var message = new StringBuilder()
+                .AppendLine("Новый возможный заказ")
+                .AppendLine($"Клиент: {user}")
+                .AppendLine($"Контакт: {contact}")
+                .AppendLine($"{serviceTag}: {service}")
+                .AppendLine($"Вопрос от клиента: {question}").ToString();
+
+            await _messageSender.SendAsync(message);
+
+            OrderInformation = "Ваш заказ успешно сохранен. Мы свяжемся с вами в ближайшее время";
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            _logger.LogError(ex, ex.Message);
+        }
+    }
+
+    private string GetServiceTag(int serviceId, string service)
+    {
+        var siteServiceList = Kits.Concat(Works);
+        // if table click
+        var fullMatch = siteServiceList.FirstOrDefault(x => x.Id == serviceId && x.Name.ToLower() == service.ToLower());
+        if (fullMatch != null)
+        {
+            return $"Услуга из списка сайта (стоимость - от {fullMatch.Price} {Currency})";
+        }
+        else
+        {
+            // if entered manually
+            if (serviceId == NotExistingId)
+            {
+                var nameMatch = siteServiceList.FirstOrDefault(x => x.Name.ToLower() == service.ToLower());
+                if (nameMatch != null)
+                {
+                    return $"Услуга из списка сайта (стоимость - от {nameMatch.Price} {Currency})";
+                }
+            }
+            return "Услуга вне списка сайта";
         }
     }
 
@@ -49,29 +87,25 @@ public class IndexModel : PageModel
 
     private static List<FilmWrappingKit> GenerateWorks()
     {
-        var works = new List<FilmWrappingKit>()
+        return new List<FilmWrappingKit>()
         {
-            new(0, "Багажник, зона погрузки", 50),
-            new(0, "Глянцевые стойки дверей", 55),
-            new(0, "Двери", 685),
-            new(0, "Задняя часть арок", 85),
-            new(0, "Зеркала", 85),
-            new(0, "Зоны под ручками дверей, 4 штуки (маникюр)", 55),
-            new(0, "Канты дверей, 4 штуки", 30),
-            new(0, "Капот полностью", 360),
-            new(0, "Низы дверей (20см)", 175),
-            new(0, "Пароги, внутреняя часть, 4 штуки", 50),
-            new(0, "Передние крылья", 260),
-            new(0, "Передние стойки (лобового стекла)", 85),
-            new(0, "Передний бампер", 400),
-            new(0, "Передняя часть крыльев", 90),
-            new(0, "Полоса на капот", 120),
-            new(0, "Полоса на крышу", 85),
-            new(0, "Фары", 85)
-        }.OrderBy(x => x.Name).ToList();
-        var startId = 5u;
-        works.ForEach(x => x.Id = startId++);
-        return works;
+            new(5, "Багажник, зона погрузки", 50),
+            new(6, "Глянцевые стойки дверей", 55),
+            new(7, "Двери", 685),
+            new(8, "Задняя часть арок", 85),
+            new(9, "Зеркала", 85),
+            new(10, "Зоны под ручками дверей, 4 штуки (маникюр)", 55),
+            new(11, "Канты дверей, 4 штуки", 30),
+            new(12, "Капот полностью", 360),
+            new(13, "Низы дверей (20см)", 175),
+            new(14, "Пароги, внутреняя часть, 4 штуки", 50),
+            new(15, "Передние крылья", 260),
+            new(16, "Передние стойки (лобового стекла)", 85),
+            new(17, "Передний бампер", 400),
+            new(18, "Передняя часть крыльев", 90),
+            new(19, "Полоса на капот", 120),
+            new(20, "Полоса на крышу", 85),
+            new(21, "Фары", 85)
+        };
     }
-      
 }
