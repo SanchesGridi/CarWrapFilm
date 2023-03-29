@@ -1,5 +1,6 @@
 ﻿using CarWrapFilm.Models;
 using CarWrapFilm.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text;
 
@@ -55,23 +56,13 @@ public class IndexModel : PageModel
     private string GetServiceTag(int serviceId, string service)
     {
         var siteServiceList = Kits.Concat(Works);
-        // if table click
-        var fullMatch = siteServiceList.FirstOrDefault(x => x.Id == serviceId && x.Name.ToLower() == service.ToLower());
-        if (fullMatch != null)
+        var kitOrWork = siteServiceList.FirstOrDefault(x => (x.Id == serviceId && x.Name.ToLower() == service.ToLower()) || x.Name.ToLower() == service.ToLower());
+        if (kitOrWork != null)
         {
-            return $"Услуга из списка сайта (стоимость - от {fullMatch.Price} {Currency})";
+            return $"Услуга из списка сайта (стоимость - от {kitOrWork.Price} {Currency})";
         }
         else
         {
-            // if entered manually
-            if (serviceId == NotExistingId)
-            {
-                var nameMatch = siteServiceList.FirstOrDefault(x => x.Name.ToLower() == service.ToLower());
-                if (nameMatch != null)
-                {
-                    return $"Услуга из списка сайта (стоимость - от {nameMatch.Price} {Currency})";
-                }
-            }
             return "Услуга вне списка сайта";
         }
     }

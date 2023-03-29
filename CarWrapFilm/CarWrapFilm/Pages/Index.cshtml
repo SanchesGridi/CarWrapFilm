@@ -82,7 +82,7 @@
     </p>
 </div>
 
-<form class="m-b-20" method="post" id="service-order-form">
+<form class="m-b-20" method="post" id="service-order-form" asp-antiforgery="true">
     <header class="text-center text-primary"><strong>Заказ Услуги:</strong></header>
     <input type="hidden" id="form-service-id-input" name="serviceId" value="@Model.NotExistingId"/>
     <div class="form-group">
