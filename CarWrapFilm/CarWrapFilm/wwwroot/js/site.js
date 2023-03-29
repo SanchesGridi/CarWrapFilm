@@ -22,7 +22,7 @@ function setFormDataAndScroll(serviceInput, serviceIdInput, row) {
 
     let form = getById("service-order-form");
     let rect = form.getBoundingClientRect();
-    window.scrollTo(rect.x, rect.y);
+    window.scrollBy(rect.x, rect.y);
 }
 
 document.addEventListener("DOMContentLoaded", e => {
