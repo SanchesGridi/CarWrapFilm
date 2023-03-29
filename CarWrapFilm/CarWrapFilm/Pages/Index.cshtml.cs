@@ -1,6 +1,5 @@
 ﻿using CarWrapFilm.Models;
 using CarWrapFilm.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text;
 
@@ -76,9 +75,8 @@ public class IndexModel : PageModel
             new(4, "Максимум", 3000, new[] { "Оклейка всего авто", "Конечная стоимость рассчитывается индивидуально" })
         };
 
-    private static List<FilmWrappingKit> GenerateWorks()
-    {
-        return new List<FilmWrappingKit>()
+    private static List<FilmWrappingKit> GenerateWorks() =>
+        new()
         {
             new(5, "Багажник, зона погрузки", 50),
             new(6, "Глянцевые стойки дверей", 55),
@@ -98,5 +96,4 @@ public class IndexModel : PageModel
             new(20, "Полоса на крышу", 85),
             new(21, "Фары", 85)
         };
-    }
 }
