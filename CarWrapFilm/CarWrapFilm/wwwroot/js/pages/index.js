@@ -1,13 +1,9 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿"use strict";
 
-"use strict";
+import { getById } from '/js/common/helpers.js';
 
 const selected = "text-primary";
 
-function getById(id) {
-    return document.getElementById(id);
-}
 function removeSelectedRow(table) {
     for (const row of table.rows) {
         if (row.className === selected) {
@@ -30,8 +26,8 @@ document.addEventListener("DOMContentLoaded", e => {
 
     const serviceInput = getById("form-service-input");
     const serviceIdInput = getById("form-service-id-input");
-    const tableKits = getById("table-kits");
-    const tableWorks = getById("table-works")
+    const tableKits = getById("table-kits").getElementsByTagName("tbody")[0];
+    const tableWorks = getById("table-works").getElementsByTagName("tbody")[0];
     for (const row of tableKits.rows) {
         row.onclick = function (e) {
             e.preventDefault();

@@ -1,0 +1,48 @@
+﻿@page
+@model CarWrapFilm.Pages.CalculatorModel
+@{
+    ViewData["Title"] = Model.Title;
+    var tableClass = "table table-striped table-hover table-responsive";
+}
+
+<style>
+    .table-hover > tbody > tr:hover > td,
+    .table-hover > tbody > tr:hover > th {
+        background-color: darkgray;
+    }
+</style>
+
+<div class="text-center">
+    <h4>Калькулятор</h4>
+</div>
+
+<div align="center">
+    <table class="@tableClass" id="table-works-for-calculator">
+        <thead>
+            <tr>
+                <td><strong class="text-primary">Элемент оклейки</strong></td>
+                <td align="right"><strong class="text-primary">Цена</strong></td>
+                <td align="right"><strong class="text-primary">Опции</strong></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var work in Model.Works)
+            {
+                <tr id="@($"{work.Id}_service_row_calculator")">
+                    <td><strong>@work.Name</strong></td>
+                    <td align="right">От @work.Price @Model.Currency</td>
+                    <td align="right">
+                        <button class="btn btn-group btn-success">+</button>
+                        <button class="btn btn-group btn-success">-</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<button id="test-btn" class="btn btn-primary">log to console</button>
+
+@section Scripts {
+    <script type="module" src="~/js/pages/calculator.js" asp-append-version="true"></script>
+}

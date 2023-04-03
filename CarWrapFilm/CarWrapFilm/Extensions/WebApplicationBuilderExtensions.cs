@@ -20,6 +20,10 @@ public static class WebApplicationBuilderExtensions
             new TelegramUser(
                 configuration.GetSection("Telegram:Users:SergDerg:Name").Value,
                 configuration.GetSection("Telegram:Users:SergDerg:ChatId").Value.ToLong()
+            ),
+            new TelegramUser(
+                configuration.GetSection("Telegram:Users:Serg2:Name").Value,
+                configuration.GetSection("Telegram:Users:Serg2:ChatId").Value.ToLong()
             )
         };
         var telegramConfiguration = new TelegramConfiguration(token, users);
