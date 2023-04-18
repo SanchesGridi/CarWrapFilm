@@ -16,7 +16,7 @@ public static class WebApplicationBuilderExtensions
             new TelegramUser(
                 configuration.GetSection("Telegram:Users:AlexGrid:Name").Value,
                 configuration.GetSection("Telegram:Users:AlexGrid:ChatId").Value.ToLong()
-            ),
+            )/*,
             new TelegramUser(
                 configuration.GetSection("Telegram:Users:SergDerg:Name").Value,
                 configuration.GetSection("Telegram:Users:SergDerg:ChatId").Value.ToLong()
@@ -24,7 +24,7 @@ public static class WebApplicationBuilderExtensions
             new TelegramUser(
                 configuration.GetSection("Telegram:Users:SergKisha:Name").Value,
                 configuration.GetSection("Telegram:Users:SergKisha:ChatId").Value.ToLong()
-            )
+            )*/
         };
         var telegramConfiguration = new TelegramConfiguration(token, users);
 
