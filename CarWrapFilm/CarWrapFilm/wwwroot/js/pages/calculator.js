@@ -51,7 +51,9 @@ document.addEventListener("DOMContentLoaded", e => {
                     cartLine.remove();
                     if (!cartLine.quantity) {
                         let index = this.cartLines.indexOf(cartLine);
-                        this.cartLines.splice(index, 1);
+                        if (index !== -1) {
+                            this.cartLines.splice(index, 1);
+                        }
                     }
                 }
             }
