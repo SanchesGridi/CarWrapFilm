@@ -32,16 +32,16 @@ document.addEventListener("DOMContentLoaded", e => {
 
     const cartCalculator = {
         cartLines: [],
-        addToCart(serviceId, name, price) {
+        addToCart(id, name, price) {
             if (this.cartLines.length) {
-                let cartLine = this.cartLines.find(x => x.serviceId === serviceId);
+                let cartLine = this.cartLines.find(x => x.serviceId === id);
                 if (cartLine) {
                     cartLine.add();
                 } else {
-                    this.cartLines.push(new CartLine(serviceId, 1, name, price));
+                    this.cartLines.push(new CartLine(id, 1, name, price));
                 }
             } else {
-                this.cartLines.push(new CartLine(serviceId, 1, name, price));
+                this.cartLines.push(new CartLine(id, 1, name, price));
             }
         },
         removeFromCart(serviceId) {
@@ -102,14 +102,15 @@ document.addEventListener("DOMContentLoaded", e => {
     // handlers
     const table = getById("table-works-for-calculator").getElementsByTagName("tbody")[0];
     for (const row of table.rows) {
+        let serviceId = parseInt(row.id);
         let serviceName = row.cells[0].children[0].textContent;
-        let price = row.cells[1].textContent;
+        let servicePrice = row.cells[1].textContent;
+
         let addButton = row.cells[2].children[0];
         let removeButton = row.cells[2].children[1];
-        let serviceId = parseInt(row.id);
         addButton.addEventListener("click", e => {
             e.preventDefault();
-            cartCalculator.addToCart(serviceId, serviceName, price);
+            cartCalculator.addToCart(serviceId, serviceName, servicePrice);
             cartCalculator.updateForm();
         });
         removeButton.addEventListener("click", e => {
