@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-import { getById } from '/js/common/helpers.js';
+import { getById } from '/js/common/functions.js';
 
 const selected = "text-primary";
 

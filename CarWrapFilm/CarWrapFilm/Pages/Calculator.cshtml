@@ -41,7 +41,33 @@
     </table>
 </div>
 
-<button id="test-btn" class="btn btn-primary">log to console</button>
+<form class="m-b-20" method="post" id="calculator-form" asp-antiforgery="true">
+    <header class="text-center text-primary"><strong>Выбранные Услуги:</strong></header>
+    <div id="works-container"></div>
+    <div id="form-container" class="m-t-20">
+        <div class="form-group">
+            <label for="form-name-input">Имя:</label>
+            <input id="form-name-input" type="text" class="form-control" aria-describedby="form-name-info" placeholder="Введите ваше имя" name="user" required />
+            <small id="form-name-info" class="form-text text-muted">Введите ваше имя (поле обязательно для заполнения)</small>
+        </div>
+        <div class="form-group">
+            <label for="form-client-contact-input">Контакт (email или телефон):</label>
+            <input id="form-client-contact-input" type="text" class="form-control" aria-describedby="form-client-contact-info" placeholder="Введите ваш контакт для обратной связи" name="contact" required />
+            <small id="form-client-contact-info" class="form-text text-muted">Вы можете оставить любой контакт для обратной связи, если это социальная сеть или мессенджер, пожалуйста, укажите название (поле обязательно для заполнения)</small>
+        </div>
+        <div class="form-group">
+            <label for="form-question-input">Вопрос:</label>
+            <textarea id="form-question-input" class="form-control" aria-describedby="questionHelp" placeholder="Введите интересующий вас вопрос" name="question"></textarea>
+            <small id="questionHelp" class="form-text text-muted">Задайте нам вопрос</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </div>
+</form>
+
+@if (!Model.OrderInformation.IsEmpty())
+{
+    <p class="text-center text-success">@Model.OrderInformation</p>
+}
 
 @section Scripts {
     <script type="module" src="~/js/pages/calculator.js" asp-append-version="true"></script>

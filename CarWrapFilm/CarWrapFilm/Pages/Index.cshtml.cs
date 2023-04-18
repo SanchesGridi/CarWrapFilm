@@ -37,7 +37,7 @@ public class IndexModel : PageModel
         {
             var serviceTag = GetServiceTag(serviceId, service);
             var message = new StringBuilder()
-                .AppendLine("Новый возможный заказ")
+                .AppendLine("Новый возможный заказ (Цены)")
                 .AppendLine($"Клиент: {user}")
                 .AppendLine($"Контакт: {contact}")
                 .AppendLine($"{serviceTag}: {service}")
@@ -45,7 +45,7 @@ public class IndexModel : PageModel
 
             await _messageSender.SendAsync(message);
 
-            OrderInformation = "Ваш заказ успешно сохранен. Мы свяжемся с вами в ближайшее время";
+            OrderInformation = Consts.OrderInformation;
         }
         catch (Exception ex)
         {

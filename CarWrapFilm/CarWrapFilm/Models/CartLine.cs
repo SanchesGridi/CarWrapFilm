@@ -1,6 +1,6 @@
 ﻿namespace CarWrapFilm.Models;
 
-public class CartLine
+public class CartLine // not used, todo: bind to session
 {
     private readonly int _positionId;
 
