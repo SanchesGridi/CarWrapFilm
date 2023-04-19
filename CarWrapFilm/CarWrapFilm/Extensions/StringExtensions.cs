@@ -11,4 +11,9 @@ public static class StringExtensions
     {
         return long.Parse(@this);
     }
+
+    public static uint ToUint(this string @this)
+    {
+        return uint.Parse(@this);
+    }
 }

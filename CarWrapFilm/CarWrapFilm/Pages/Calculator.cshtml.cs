@@ -1,3 +1,4 @@
+using CarWrapFilm.Extensions;
 using CarWrapFilm.Models;
 using CarWrapFilm.Services;
 using CarWrapFilm.Utils;
@@ -36,10 +37,19 @@ namespace CarWrapFilm.Pages
                     .AppendLine($"Клиент: {user}")
                     .AppendLine($"Контакт: {contact}")
                     .AppendLine("Выбранные услуги:");
+
+                var totalPrice = 0u;
                 for (var index = 0; index < works.Length; index++)
                 {
-                    builder.AppendLine($"{index +1}) {works[index].Name} (стоимость - {works[index].Price}) [{works[index].Count} поз.]");
+                    var name = works[index].Name;
+                    var price = works[index].Price;
+                    var count = works[index].Count;
+                    totalPrice += price.Split(" ")[1].ToUint() * count;
+
+                    builder.AppendLine($"{index +1}) {name} (стоимость - {price}) [{count} поз.]");
                 }
+
+                builder.AppendLine($"Итоговая стоимость: от {totalPrice} {Currency}");
                 builder.AppendLine($"Вопрос от клиента: {question}");
 
                 await _messageSender.SendAsync(builder.ToString());

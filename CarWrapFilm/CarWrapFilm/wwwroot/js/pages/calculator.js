@@ -1,7 +1,7 @@
 ﻿"use strict";
 
-import { getById, createElement } from '/js/common/functions.js';
-import { Cart } from '/js/common/cart.js';
+import { getById, createElement } from '../common/functions.js';
+import { Cart } from '../common/cart.js';
 
 function createHiddenInput(name, value) {
     let input = createElement("input");
@@ -9,6 +9,13 @@ function createHiddenInput(name, value) {
     input.name = name;
     input.value = value;
     return input;
+}
+
+function createStrongElement(className, textContent) {
+    let strong = createElement("strong");
+    strong.className = className;
+    strong.textContent = textContent;
+    return strong;
 }
 
 function updateForm(cart) {
@@ -26,6 +33,7 @@ function updateForm(cart) {
 
         let index = 0;
         let order = 1;
+        let totalPrice = 0;
         for (const cartLine of cart.cartLines) {
             let entry = createElement("div");
             entry.className = "form-group";
@@ -34,10 +42,10 @@ function updateForm(cart) {
             let countInput = createHiddenInput(`works[${index}].Count`, cartLine.quantity);
             let nameInput = createHiddenInput(`works[${index}].Name`, cartLine.name);
             let priceInput = createHiddenInput(`works[${index++}].Price`, cartLine.price);
-
-            let description = createElement("strong");
-            description.className = "form-text text-black";
-            description.textContent = `${order++}) ${cartLine.name} (стоимость - ${cartLine.price}) [${cartLine.quantity} поз.]`;
+            let description = createStrongElement(
+                "form-text text-black",
+                `${order++}) ${cartLine.name} (стоимость - ${cartLine.price}) [${cartLine.quantity} поз.]`
+            );
 
             entry.appendChild(idInput);
             entry.appendChild(countInput);
@@ -46,7 +54,13 @@ function updateForm(cart) {
             entry.appendChild(description);
 
             serviceContainer.appendChild(entry);
+
+            totalPrice += parseInt(cartLine.price.split(" ")[1]) * cartLine.quantity;
         }
+        serviceContainer.appendChild(createStrongElement(
+            "form-text text-black",
+            `Итоговая стоимость: от ${totalPrice} BYN`
+        ));
     }
 }
 
