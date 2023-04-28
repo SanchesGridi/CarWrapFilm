@@ -1,4 +1,5 @@
-﻿@{
+﻿@inject IWebHostEnvironment environment
+@{
     var brand = "(CWF)";
 }
 <!DOCTYPE html>
@@ -48,8 +49,16 @@
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @if (environment.IsDevelopment())
+    {
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    }
+    else
+    {
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    }
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
