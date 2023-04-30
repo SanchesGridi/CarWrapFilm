@@ -1,6 +1,7 @@
 ﻿@inject IWebHostEnvironment environment
 @{
     var brand = "(CWF)";
+    var development = environment.IsDevelopment();
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -8,9 +9,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - @brand</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @if (development)
+    {
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    }
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CarWrapFilm.styles.css" asp-append-version="true" />
+    @await RenderSectionAsync("Links", required: false)
 </head>
 <body>
     <header>
@@ -49,7 +58,7 @@
         </div>
     </footer>
 
-    @if (environment.IsDevelopment())
+    @if (development)
     {
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
