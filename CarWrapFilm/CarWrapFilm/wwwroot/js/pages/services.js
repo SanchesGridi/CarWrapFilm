@@ -1,7 +1,7 @@
 ﻿"use strict";
 
-import { getById, createElement } from '../common/functions.js';
+try {
 
-document.addEventListener("DOMContentLoaded", e => {
-    e.preventDefault();
-});
+} catch (e) {
+    console.log(e);
+}
