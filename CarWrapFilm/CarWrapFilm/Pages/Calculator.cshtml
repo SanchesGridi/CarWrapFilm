@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = Model.Title;
     var tableClass = "table table-striped table-hover table-responsive table-bordered";
+    var buttonClass = "ui-button ui-widget ui-corner-all";
+    var iconPlusClass = "ui-icon ui-icon-plus";
+    var iconMinusClass = "ui-icon ui-icon-minus";
 }
 
 @section Links {
@@ -38,8 +41,8 @@
                     <td><strong>@work.Name</strong></td>
                     <td align="right">От @work.Price @Model.Currency</td>
                     <td align="right">
-                        <button class="ui-button ui-widget ui-corner-all"><span class="ui-icon ui-icon-plus"></span></button>
-                        <button class="ui-button ui-widget ui-corner-all"><span class="ui-icon ui-icon-minus"></span></button>
+                        <button class="@buttonClass"><span class="@iconPlusClass"></span></button>
+                        <button class="@buttonClass"><span class="@iconMinusClass"></span></button>
                     </td>
                 </tr>
             }
