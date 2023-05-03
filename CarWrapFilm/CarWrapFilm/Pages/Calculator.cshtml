@@ -2,15 +2,21 @@
 @model CarWrapFilm.Pages.CalculatorModel
 @{
     ViewData["Title"] = Model.Title;
-    var tableClass = "table table-striped table-hover table-responsive";
+    var tableClass = "table table-striped table-hover table-responsive table-bordered";
 }
 
-<style>
-    .table-hover > tbody > tr:hover > td,
-    .table-hover > tbody > tr:hover > th {
-        background-color: darkgray;
-    }
-</style>
+@section Links {
+    <link rel="stylesheet" href="~/lib/jquery-ui-1.13.2.custom/jquery-ui.css" />
+}
+
+@section Styles {
+    <style>
+        .table-hover > tbody > tr:hover > td,
+        .table-hover > tbody > tr:hover > th {
+            background-color: darkgray;
+        }
+    </style>
+}
 
 <div class="text-center">
     <h4>Калькулятор</h4>
@@ -32,8 +38,8 @@
                     <td><strong>@work.Name</strong></td>
                     <td align="right">От @work.Price @Model.Currency</td>
                     <td align="right">
-                        <button class="btn btn-group btn-success">+</button>
-                        <button class="btn btn-group btn-success">-</button>
+                        <button class="ui-button ui-widget ui-corner-all"><span class="ui-icon ui-icon-plus"></span></button>
+                        <button class="ui-button ui-widget ui-corner-all"><span class="ui-icon ui-icon-minus"></span></button>
                     </td>
                 </tr>
             }

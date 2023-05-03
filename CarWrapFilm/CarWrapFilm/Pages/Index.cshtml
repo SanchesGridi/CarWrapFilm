@@ -2,15 +2,17 @@
 @model IndexModel
 @{
     ViewData["Title"] = Model.Title;
-    var tableClass = "table table-striped table-hover table-responsive";
+    var tableClass = "table table-striped table-hover table-responsive table-bordered";
 }
 
-<style>
-    .table-hover > tbody > tr:hover > td,
-    .table-hover > tbody > tr:hover > th {
-        background-color: darkgray;
-    }
-</style>
+@section Styles {
+    <style>
+        .table-hover > tbody > tr:hover > td,
+        .table-hover > tbody > tr:hover > th {
+            background-color: darkgray;
+        }
+    </style>
+}
 
 <div align="left" class="m-b-20">
     <strong class="text-black-50">Контакты:</strong><br />
